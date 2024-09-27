@@ -53,13 +53,8 @@ const logoutUser = async(req, res) =>{
     try{
     const savedUser = await User.findOne({ emailAddress })
     const check = bcrypt.compareSync(password, savedUser.password)
-    if(savedUser && check){
-        res.clearCookie('token')
-        res.status(200).send('Logged out')
-    }
-    else{
-        res.send('Wrong credentials')
-    }
+    res.clearCookie('token')
+    res.status(200).send('Logged out')
     }
     catch(err){
         return res.status(404).send('error logging out')
